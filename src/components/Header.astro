@@ -1,0 +1,126 @@
+
+---
+const navigation = [
+  { label: "Overview", href: "#overview" },
+  { label: "Location", href: "#location" },
+  { label: "Amenities", href: "#amenities" },
+  { label: "Towers", href: "#towers" },
+  { label: "Gallery", href: "#gallery" },
+  { label: "Contact", href: "#contact" },
+];
+
+const phoneNumber = "+917066787989";
+---
+
+<header class="site-header" id="site-header">
+  <div class="header-container">
+
+    <a
+      href="#top"
+      class="brand-logo"
+      aria-label="Paranjape Forest Trails home"
+    >
+      <img
+        src="/images/paranjape-forest-trails-logo.png"
+        alt="Paranjape Forest Trails, Bhugaon Pune"
+        width="266"
+        height="75"
+      />
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      {navigation.map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))}
+    </nav>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="mobile-navigation"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+
+  <nav
+    class="mobile-nav"
+    id="mobile-navigation"
+    aria-label="Mobile navigation"
+    aria-hidden="true"
+    inert
+  >
+    {navigation.map((item) => (
+      <a href={item.href}>{item.label}</a>
+    ))}
+
+    <a href={`tel:${phoneNumber}`} class="mobile-phone">
+      Call 70667 87989
+    </a>
+  </nav>
+</header>
+
+<script>
+  const header = document.querySelector(".site-header");
+
+  if (header) {
+    const menuButton = header.querySelector(".menu-toggle");
+    const mobileNav = header.querySelector(".mobile-nav");
+
+    if (menuButton && mobileNav) {
+      const closeMenu = () => {
+        menuButton.classList.remove("active");
+        mobileNav.classList.remove("open");
+
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation menu");
+
+        mobileNav.setAttribute("aria-hidden", "true");
+        mobileNav.setAttribute("inert", "");
+      };
+
+      const openMenu = () => {
+        menuButton.classList.add("active");
+        mobileNav.classList.add("open");
+
+        menuButton.setAttribute("aria-expanded", "true");
+        menuButton.setAttribute("aria-label", "Close navigation menu");
+
+        mobileNav.setAttribute("aria-hidden", "false");
+        mobileNav.removeAttribute("inert");
+      };
+
+      menuButton.addEventListener("click", () => {
+        const isOpen =
+          menuButton.getAttribute("aria-expanded") === "true";
+
+        if (isOpen) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+
+      mobileNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeMenu);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeMenu();
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 850) {
+          closeMenu();
+        }
+      });
+    }
+  }
+</script>

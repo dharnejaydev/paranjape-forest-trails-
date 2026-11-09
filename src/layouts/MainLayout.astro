@@ -1,0 +1,114 @@
+
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Paranjape Forest Trails Bhugaon | Premium Residences in Pune",
+  description = "Discover Paranjape Forest Trails, Bhugaon, Pune — a residential address surrounded by greenery, with a collection of distinctive residences.",
+} = Astro.props;
+
+const gtmId = "GTM-KH7BX34B";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#183d32" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta
+      property="og:image"
+      content="/images/hero/forest-trails-hero.png"
+    />
+
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Hero Image Preload -->
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero/forest-trails-hero.png"
+      fetchpriority="high"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Tag Manager -->
+    <script is:inline>
+      (function(w,d,s,l,i) {
+        w[l] = w[l] || [];
+        w[l].push({
+          "gtm.start": new Date().getTime(),
+          event: "gtm.js"
+        });
+
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l !== "dataLayer" ? "&l=" + l : "";
+
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-KH7BX34B");
+    </script>
+    <!-- End Google Tag Manager -->
+
+  </head>
+
+  <body id="top">
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe
+        src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+        title="Google Tag Manager"
+      ></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- One Website Header Only -->
+    <Header />
+
+    <!-- Page Content -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- One Website Footer Only -->
+    <Footer />
+
+  </body>
+</html>

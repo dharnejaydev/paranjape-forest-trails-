@@ -1,0 +1,666 @@
+
+---
+const quickLinks = [
+  { label: "Overview", href: "#overview" },
+  { label: "Residences", href: "#collection" },
+  { label: "Amenities", href: "#amenities" },
+  { label: "Masterplan", href: "#masterplan" },
+  { label: "Location", href: "#location" },
+  { label: "Enquire Now", href: "#contact" },
+];
+
+const contactNumbers = [
+  "7066787989",
+  "9860686989",
+];
+
+const reraDetails = [
+  { project: "The Cove", number: "P52100048536" },
+  { project: "The Rivolo", number: "P52100031560" },
+  { project: "Highgardens", number: "P52100053310" },
+  { project: "Athashri-B2", number: "P52100000029" },
+];
+
+const directionsUrl =
+  "https://www.google.com/maps/search/?api=1&query=Paranjape+Forest+Trails+Bhugaon+Pune";
+---
+
+<footer class="ft-footer" id="top">
+
+  <!-- MAIN FOOTER -->
+  <div class="ft-footer-main">
+
+  
+
+    <div class="ft-footer-columns">
+
+      <!-- BRAND -->
+      <div class="ft-footer-brand">
+
+        <a href="/" class="ft-footer-logo">
+          <span class="ft-logo-name">PARANJAPE</span>
+          <span class="ft-logo-sub">FOREST TRAILS <i></i> BHUGAON</span>
+        </a>
+
+        <p class="ft-brand-description">
+          Explore a collection of residences at Bhugaon,
+          Pune, and discover the possibilities of a
+          well-connected residential address.
+        </p>
+
+        <a
+          href={directionsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ft-footer-address"
+        >
+          <span>⌖</span>
+          <span>Bhugaon, Paud Road,<br />Pune, Maharashtra, India</span>
+          <i>↗</i>
+        </a>
+
+      </div>
+
+      <!-- NAVIGATION -->
+      <div class="ft-footer-navigation">
+
+        <span class="ft-footer-label">EXPLORE</span>
+        <h3>Quick Links</h3>
+
+        <ul>
+          {quickLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+              <span>↗</span>
+            </li>
+          ))}
+        </ul>
+
+      </div>
+
+      <!-- CONTACT -->
+      <div class="ft-footer-contact">
+
+        <span class="ft-footer-label">GET IN TOUCH</span>
+        <h3>We're here to help.</h3>
+
+        <p>
+          Connect with our enquiry team for project
+          information and assistance.
+        </p>
+
+        <span class="ft-contact-caption">CALL FOR ENQUIRIES</span>
+
+        <div class="ft-phone-list">
+          {contactNumbers.map((number) => (
+            <a href={`tel:+91${number}`}>
+              +91 {number}
+              <span>↗</span>
+            </a>
+          ))}
+        </div>
+
+        <a
+          href="https://wa.me/917066787989"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ft-footer-whatsapp"
+        >
+          Continue on WhatsApp <span>↗</span>
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- LEGAL INFORMATION -->
+  <div class="ft-footer-legal">
+
+    <div class="ft-legal-top">
+
+      <!-- RERA -->
+      <div class="ft-footer-rera">
+
+        <div class="ft-legal-heading">
+          <div>
+            <span class="ft-footer-label">REGULATORY INFORMATION</span>
+            <h3>Project RERA Details</h3>
+          </div>
+          <span class="ft-legal-mark">RERA</span>
+        </div>
+
+        <div class="ft-rera-grid">
+          {reraDetails.map((item) => (
+            <div class="ft-rera-item">
+              <span>{item.project}</span>
+              <strong>{item.number}</strong>
+            </div>
+          ))}
+        </div>
+
+        
+
+      </div>
+
+      <!-- DISCLAIMER -->
+      <div class="ft-footer-disclaimer">
+
+        <span class="ft-footer-label">PLEASE NOTE</span>
+        <h3>Disclaimer</h3>
+
+        <p>
+          This website is managed by an authorised channel partner
+          and is intended for general informational purposes.
+          Images, illustrations, specifications, amenities, prices,
+          availability and other project details are indicative and
+          subject to change. Prospective buyers should independently
+          verify all details, approvals, RERA registration,
+          specifications and applicable terms with the developer
+          before making any purchase decision.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- BOTTOM BAR -->
+    <div class="ft-footer-bottom">
+
+      <p>
+        © {new Date().getFullYear()} Paranjape Forest Trails, Bhugaon.
+        All Rights Reserved.
+      </p>
+
+     
+
+    </div>
+
+  </div>
+
+</footer>
+
+<style>
+.ft-footer {
+  --footer-green: #173d2d;
+  --footer-dark: #202b24;
+  --footer-gold: #b88d54;
+  --footer-text: #716b61;
+  --footer-border: #e7dfd3;
+
+  width: 100%;
+  background: #f7f3eb;
+  color: var(--footer-dark);
+}
+
+/* MAIN AREA */
+
+.ft-footer-main {
+  width: min(1320px, 91%);
+  margin: auto;
+  padding: 38px 0 32px;
+}
+
+.ft-footer-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--footer-border);
+  color: #a08d74;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+/* THREE COLUMNS */
+
+.ft-footer-columns {
+  display: grid;
+  grid-template-columns: 1.15fr .8fr .9fr;
+  gap: 75px;
+  padding: 32px 0 12px;
+}
+
+.ft-footer-brand,
+.ft-footer-navigation,
+.ft-footer-contact {
+  min-width: 0;
+}
+
+/* BRAND */
+
+.ft-footer-logo {
+  display: inline-flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--footer-green);
+}
+
+.ft-logo-name {
+  font: 600 27px/1 "Cormorant Garamond", Georgia, serif;
+  letter-spacing: 1px;
+}
+
+.ft-logo-sub {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 5px;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.ft-logo-sub i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--footer-gold);
+}
+
+.ft-brand-description {
+  max-width: 320px;
+  margin: 17px 0;
+  color: var(--footer-text);
+  font-size: 11px;
+  line-height: 1.85;
+}
+
+.ft-footer-address {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--footer-green);
+  text-decoration: none;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.ft-footer-address > span:first-child {
+  color: var(--footer-gold);
+  font-size: 20px;
+}
+
+.ft-footer-address i {
+  margin-left: 5px;
+  font-style: normal;
+  color: var(--footer-gold);
+}
+
+/* SHARED HEADINGS */
+
+.ft-footer-label {
+  display: block;
+  color: var(--footer-gold);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.ft-footer-navigation h3,
+.ft-footer-contact h3 {
+  margin: 9px 0 17px;
+  color: var(--footer-dark);
+  font: 500 25px/1.1 "Cormorant Garamond", Georgia, serif;
+}
+
+/* NAVIGATION */
+
+.ft-footer-navigation ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ft-footer-navigation li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--footer-border);
+}
+
+.ft-footer-navigation li a {
+  color: #5e594f;
+  font-size: 10px;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.ft-footer-navigation li > span {
+  color: var(--footer-gold);
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+
+.ft-footer-navigation li:hover a {
+  color: var(--footer-green);
+}
+
+.ft-footer-navigation li:hover > span {
+  opacity: 1;
+}
+
+/* CONTACT */
+
+.ft-footer-contact > p {
+  max-width: 290px;
+  margin: -5px 0 17px;
+  color: var(--footer-text);
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.ft-contact-caption {
+  display: block;
+  margin-bottom: 7px;
+  color: #9a8c78;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 1.3px;
+}
+
+.ft-phone-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.ft-phone-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 190px;
+  color: var(--footer-green);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ft-phone-list a span {
+  color: var(--footer-gold);
+  font-size: 12px;
+}
+
+.ft-footer-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 15px;
+  padding: 10px 13px;
+  background: var(--footer-green);
+  color: white;
+  font-size: 9px;
+  text-decoration: none;
+  transition: background .2s ease;
+}
+
+.ft-footer-whatsapp:hover {
+  background: #28533c;
+}
+
+.ft-footer-whatsapp span {
+  color: #e5c38f;
+}
+
+/* LEGAL AREA */
+
+.ft-footer-legal {
+  border-top: 1px solid var(--footer-border);
+  background: #f2eee6;
+}
+
+.ft-legal-top {
+  display: grid;
+  grid-template-columns: .95fr 1.05fr;
+  gap: 65px;
+  width: min(1320px, 91%);
+  margin: auto;
+  padding: 25px 0;
+}
+
+.ft-legal-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.ft-legal-heading h3,
+.ft-footer-disclaimer h3 {
+  margin: 7px 0 0;
+  color: var(--footer-dark);
+  font: 500 21px/1.1 "Cormorant Garamond", Georgia, serif;
+}
+
+.ft-legal-mark {
+  padding: 6px 10px;
+  border: 1px solid #d9c9b3;
+  color: #92734c;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+.ft-rera-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 20px;
+}
+
+.ft-rera-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 9px 0;
+  border-bottom: 1px solid #e3dbcf;
+}
+
+.ft-rera-item span {
+  color: #777064;
+  font-size: 9px;
+}
+
+.ft-rera-item strong {
+  color: #3c453d;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .3px;
+}
+
+.ft-rera-note {
+  margin: 11px 0 0;
+  color: #91887b;
+  font-size: 8px;
+  line-height: 1.6;
+}
+
+/* DISCLAIMER */
+
+.ft-footer-disclaimer {
+  padding-left: 35px;
+  border-left: 1px solid var(--footer-border);
+}
+
+.ft-footer-disclaimer p {
+  margin: 12px 0 0;
+  color: #81796e;
+  font-size: 9px;
+  line-height: 1.85;
+}
+
+/* BOTTOM BAR */
+
+.ft-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: min(1320px, 91%);
+  margin: auto;
+  padding: 15px 0;
+  border-top: 1px solid var(--footer-border);
+}
+
+.ft-footer-bottom p {
+  margin: 0;
+  color: #938a7d;
+  font-size: 8px;
+}
+
+.ft-bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.ft-bottom-links a {
+  color: #746c60;
+  font-size: 8px;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.ft-bottom-links a:hover {
+  color: var(--footer-green);
+}
+
+/* TABLET */
+
+@media (max-width: 950px) {
+  .ft-footer-columns {
+    grid-template-columns: 1fr 1fr;
+    gap: 35px 45px;
+  }
+
+  .ft-footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .ft-brand-description {
+    max-width: 430px;
+  }
+
+  .ft-legal-top {
+    gap: 30px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .ft-footer-main {
+    width: 88%;
+    padding: 28px 0 22px;
+  }
+
+  .ft-footer-topline {
+    font-size: 7px;
+    letter-spacing: 1.2px;
+  }
+
+  .ft-footer-columns {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 18px;
+    padding-top: 25px;
+  }
+
+  .ft-footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .ft-logo-name {
+    font-size: 25px;
+  }
+
+  .ft-brand-description {
+    max-width: 100%;
+    font-size: 10px;
+  }
+
+  .ft-footer-navigation h3,
+  .ft-footer-contact h3 {
+    font-size: 22px;
+  }
+
+  .ft-footer-navigation ul {
+    grid-template-columns: 1fr;
+  }
+
+  .ft-footer-navigation li {
+    padding: 8px 0;
+  }
+
+  .ft-footer-navigation li a {
+    font-size: 9px;
+  }
+
+  .ft-footer-contact > p {
+    font-size: 9px;
+  }
+
+  .ft-phone-list a {
+    width: 100%;
+    font-size: 11px;
+  }
+
+  .ft-footer-whatsapp {
+    gap: 8px;
+    padding: 10px;
+    font-size: 8px;
+  }
+
+  .ft-legal-top {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    width: 88%;
+    padding: 24px 0;
+  }
+
+  .ft-footer-disclaimer {
+    padding: 20px 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--footer-border);
+  }
+
+  .ft-rera-grid {
+    gap: 0 12px;
+  }
+
+  .ft-footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    width: 88%;
+    gap: 10px;
+    padding: 14px 0 18px;
+  }
+
+  .ft-footer-bottom p {
+    font-size: 8px;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 360px) {
+  .ft-footer-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .ft-footer-brand {
+    grid-column: auto;
+  }
+
+  .ft-footer-navigation ul {
+    grid-template-columns: 1fr 1fr;
+    gap: 0 12px;
+  }
+}
+</style>

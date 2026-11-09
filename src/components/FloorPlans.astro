@@ -1,0 +1,1098 @@
+
+---
+const residences = [
+  { name: "Everglades", configs: ["2 BHK"] },
+  { name: "Athashri Bhugaon", configs: ["2 BHK", "2.5 BHK"] },
+  { name: "Highgardens", configs: ["2 BHK", "3 BHK", "4 BHK"] },
+  { name: "The Canopy", configs: ["2 BHK", "3 BHK"] },
+  { name: "The Cove", configs: ["4 BHK"] },
+  { name: "The Rivolo", configs: ["4 BHK"] }
+];
+
+const initialResidence = "Athashri Bhugaon";
+
+const slug = (value) =>
+  value.toLowerCase().replaceAll(" ", "-");
+
+const getPlanImage = (residence, config) =>
+  `/images/floor-plans/${slug(residence)}-${slug(config)}.webp`;
+---
+
+<section class="fp-section" id="floor-plans">
+  <div class="fp-container">
+
+    <!-- SECTION HEADING -->
+    <div class="fp-heading">
+      <span class="fp-eyebrow">THOUGHTFULLY PLANNED HOMES</span>
+      <h2>Floor Plans <span>&</span> Pricing</h2>
+      <p>
+        Explore available home configurations and find a layout
+        that suits your lifestyle.
+      </p>
+    </div>
+
+    <!-- OPTION 12: ICON + NAME + CONFIGURATION COUNT -->
+    <div class="fp-residence-selector" aria-label="Choose a residence">
+
+      {residences.map((residence, index) => (
+        <button
+          class:list={[
+            "fp-residence-chip",
+            residence.name === initialResidence && "is-active"
+          ]}
+          type="button"
+          data-residence={residence.name}
+          aria-pressed={residence.name === initialResidence ? "true" : "false"}
+        >
+          <span class="fp-chip-icon" aria-hidden="true">
+
+            {index === 0 && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M12 3 4 9v11h16V9l-8-6Z"/>
+                <path d="M9 20v-6h6v6"/>
+              </svg>
+            )}
+
+            {index === 1 && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M4 21h16M6 21V5h12v16M9 8h2m2 0h2M9 12h2m2 0h2M9 16h2m2 0h2"/>
+              </svg>
+            )}
+
+            {index === 2 && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M20 4C9 4 4 9 4 16c0 2 1.5 4 4 4 7 0 12-7 12-16Z"/>
+                <path d="M3 21c3-6 7-9 13-13"/>
+              </svg>
+            )}
+
+            {index === 3 && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M12 22V11M12 13C5 13 4 8 4 4c5 0 8 2 8 7ZM12 16c0-5 3-8 8-8 0 5-2 8-8 8Z"/>
+              </svg>
+            )}
+
+            {index === 4 && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M2 16c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 6 0M2 20c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 6 0M4 11c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>
+              </svg>
+            )}
+
+            {index === 5 && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h2m2 0h2M9 14h2m2 0h2"/>
+              </svg>
+            )}
+
+          </span>
+
+          <span class="fp-chip-name">{residence.name}</span>
+
+          <span class="fp-chip-count">
+            {residence.configs.length}
+            {residence.configs.length === 1 ? " Plan" : " Plans"}
+          </span>
+
+        </button>
+      ))}
+
+    </div>
+
+    <!-- FLOOR PLAN CARDS -->
+    <div class="fp-grid" id="fp-grid">
+
+      {residences
+        .find((residence) => residence.name === initialResidence)
+        .configs.map((config) => (
+          <article class="fp-card">
+
+            <div class="fp-card-main">
+
+              <div class="fp-plan-image">
+
+                <div class="fp-image-placeholder">
+                  <span>FLOOR PLAN</span>
+                  <small>Approved layout preview</small>
+                </div>
+
+                <img
+                  src={getPlanImage(initialResidence, config)}
+                  alt={`${initialResidence} ${config} floor plan`}
+                  loading="lazy"
+                />
+
+                <button
+                  class="fp-enlarge"
+                  type="button"
+                  data-image={getPlanImage(initialResidence, config)}
+                  data-title={`${initialResidence} — ${config}`}
+                >
+                  <span>⌕</span> Enlarge
+                </button>
+
+              </div>
+
+              <div class="fp-card-info">
+
+                <span class="fp-card-kicker">
+                  RESIDENTIAL CONFIGURATION
+                </span>
+
+                <h3>{config}</h3>
+
+                <p class="fp-residence-name">{initialResidence}</p>
+
+                <div class="fp-area">
+                  <span>▦</span>
+                  Carpet area: On request
+                </div>
+
+                <div class="fp-price-label">Starting from</div>
+
+                <div class="fp-price">Price on request</div>
+
+                <p class="fp-price-note">
+                  Contact our team for current pricing and availability.
+                </p>
+
+              </div>
+
+            </div>
+
+            <div class="fp-highlights">
+
+              <div class="fp-highlight">
+                <span class="fp-highlight-icon">
+                  <svg viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 3H3v5M16 3h5v5M21 16v5h-5M3 16v5h5"/>
+                  </svg>
+                </span>
+                <span>Larger<br />Living Spaces</span>
+              </div>
+
+              <div class="fp-highlight">
+                <span class="fp-highlight-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2 3.5 5.5V11c0 5.2 3.6 9.6 8.5 11 4.9-1.4 8.5-5.8 8.5-11V5.5L12 2Zm0 3 5.5 2.2V11c0 3.7-2.3 7.1-5.5 8.4V5Z"/>
+                  </svg>
+                </span>
+                <span>Enhanced<br />Privacy</span>
+              </div>
+
+              <div class="fp-highlight">
+                <span class="fp-highlight-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <circle cx="9" cy="7" r="3.2"/>
+                    <circle cx="17" cy="8" r="2.6"/>
+                    <circle cx="4" cy="9" r="2.2"/>
+                    <path d="M2 18c0-3.1 2.8-5.3 6.4-5.3h1.2c3.6 0 6.4 2.2 6.4 5.3v1H2v-1Zm13-4.2c3.9-.6 7 1.5 7 4.2v1h-5.2v-1c0-1.7-.7-3.2-1.8-4.2Z"/>
+                  </svg>
+                </span>
+                <span>Designed<br />for Modern Families</span>
+              </div>
+
+            </div>
+
+            <a
+              class="fp-enquire"
+              href="#contact"
+              data-enquire={config}
+            >
+              Enquire For {config} Floor Plan
+              <span>→</span>
+            </a>
+
+          </article>
+        ))}
+
+    </div>
+
+    <p class="fp-disclaimer">
+      *Prices, carpet areas and availability are subject to confirmation
+      by the authorised project team.
+    </p>
+
+  </div>
+</section>
+
+<!-- IMAGE LIGHTBOX -->
+<div class="fp-lightbox" id="fp-lightbox" aria-hidden="true">
+
+  <button class="fp-lightbox-close" type="button" aria-label="Close image">
+    ×
+  </button>
+
+  <div class="fp-lightbox-content">
+    <p id="fp-lightbox-title"></p>
+    <img id="fp-lightbox-image" src="" alt="Enlarged floor plan" />
+  </div>
+
+</div>
+
+<style is:global>
+.fp-section {
+  --fp-brown: #50301f;
+  --fp-rust: #a95f35;
+  --fp-gold: #c49b4c;
+  --fp-cream: #f8f5ef;
+  --fp-border: #e9dfd1;
+
+  width: 100%;
+  padding: 145px 0 80px;
+  background: var(--fp-cream);
+  color: #28231e;
+  font-family: "DM Sans", sans-serif;
+  scroll-margin-top: 110px;
+  box-sizing: border-box;
+}
+
+.fp-section *,
+.fp-lightbox * {
+  box-sizing: border-box;
+}
+
+.fp-container {
+  width: min(1660px, 90%);
+  margin: 0 auto;
+}
+
+/* HEADING */
+
+.fp-heading {
+  margin-bottom: 35px;
+}
+
+.fp-eyebrow {
+  display: block;
+  color: var(--fp-gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.fp-heading h2 {
+  color: #28231e;
+  font: 500 clamp(42px, 4vw, 58px)/1.05
+    "Cormorant Garamond", Georgia, serif;
+  margin: 20px 0 8px;
+  letter-spacing: -1px;
+}
+
+.fp-heading h2 span {
+  color: var(--fp-rust);
+  font-style: italic;
+}
+
+.fp-heading > p {
+  color: #6f6b66;
+  font-size: 15px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* OPTION 12 — ICON + NAME + CONFIGURATION COUNT */
+
+.fp-residence-selector {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  margin: 38px 0 28px;
+}
+
+.fp-residence-chip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 9px;
+  min-width: 0;
+  min-height: 112px;
+  padding: 17px 16px;
+  border: 1px solid #e9dfd1;
+  border-radius: 5px;
+  background: #fffdf9;
+  color: #443326;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color .25s ease,
+    background .25s ease,
+    color .25s ease,
+    transform .25s ease,
+    box-shadow .25s ease;
+}
+
+.fp-residence-chip:hover {
+  border-color: #b8794c;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px #50301f12;
+}
+
+.fp-residence-chip.is-active {
+  border-color: #9b5c35;
+  background: #f3e9dc;
+  box-shadow: inset 0 0 0 1px #9b5c35;
+}
+
+.fp-chip-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  color: #a95f35;
+}
+
+.fp-chip-icon svg {
+  display: block;
+  width: 25px;
+  height: 25px;
+}
+
+.fp-chip-name {
+  color: #30251d;
+  font: 600 15px/1.2 "DM Sans", sans-serif;
+}
+
+.fp-chip-count {
+  color: #928477;
+  font-size: 10px;
+  letter-spacing: .3px;
+}
+
+.fp-residence-chip.is-active .fp-chip-name,
+.fp-residence-chip.is-active .fp-chip-count {
+  color: #50301f;
+}
+
+.fp-residence-chip.is-active::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a95f35;
+}
+
+/* GRID */
+
+.fp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  align-items: stretch;
+}
+
+.fp-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--fp-border);
+  border-radius: 5px;
+  transition: box-shadow .3s ease, transform .3s ease;
+}
+
+.fp-card:hover {
+  box-shadow: 0 16px 45px #4b321410;
+  transform: translateY(-3px);
+}
+
+/* CARD MAIN */
+
+.fp-card-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 26px;
+  padding: 32px;
+  min-height: 405px;
+}
+
+/* IMAGE */
+
+.fp-plan-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 350px;
+  min-width: 0;
+  overflow: hidden;
+  background: #faf8f4;
+  border: 1px solid #e7d9c9;
+  border-radius: 4px;
+}
+
+.fp-plan-image img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  object-fit: contain;
+  opacity: 0;
+  transition: transform .35s ease, opacity .2s ease;
+}
+
+.fp-plan-image img.fp-image-loaded {
+  opacity: 1;
+}
+
+.fp-plan-image:hover img {
+  transform: scale(1.035);
+}
+
+.fp-image-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #a18b70;
+  text-align: center;
+}
+
+.fp-image-placeholder span {
+  font: 500 22px "Cormorant Garamond", Georgia, serif;
+  letter-spacing: 2px;
+}
+
+.fp-image-placeholder small {
+  color: #978c7e;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.fp-enlarge {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2;
+  padding: 8px 12px;
+  background: #403c38;
+  color: #fff;
+  border: 0;
+  border-radius: 3px;
+  font: 600 11px "DM Sans", sans-serif;
+  cursor: pointer;
+}
+
+/* DETAILS */
+
+.fp-card-info {
+  min-width: 0;
+  padding-top: 7px;
+}
+
+.fp-card-kicker {
+  color: #a18b70;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+
+.fp-card-info h3 {
+  margin: 13px 0 4px;
+  color: #30251d;
+  font: 600 34px/1 "Cormorant Garamond", Georgia, serif;
+}
+
+.fp-residence-name {
+  margin: 0 0 22px;
+  color: #6c6861;
+  font-size: 13px;
+}
+
+.fp-area {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  background: #f7f0df;
+  color: #493d2c;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.fp-area span {
+  color: var(--fp-gold);
+  font-size: 15px;
+}
+
+.fp-price-label {
+  margin-top: 21px;
+  color: #8b8178;
+  font-size: 13px;
+}
+
+.fp-price {
+  margin-top: 6px;
+  color: var(--fp-rust);
+  font: 600 clamp(25px, 2.3vw, 36px)/1.2
+    "Cormorant Garamond", Georgia, serif;
+}
+
+.fp-price-note {
+  margin-top: 9px;
+  color: #8a837b;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+/* HIGHLIGHTS */
+
+.fp-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  gap: 15px;
+  min-height: 90px;
+  padding: 15px 30px;
+  border-top: 1px solid #eee8df;
+}
+
+.fp-highlight {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+  color: #6b625b;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.fp-highlight-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: var(--fp-rust);
+}
+
+.fp-highlight-icon svg {
+  display: block;
+  width: 21px;
+  height: 21px;
+}
+
+/* ENQUIRY */
+
+.fp-enquire {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 60px;
+  padding: 15px;
+  background: var(--fp-brown);
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background .25s ease;
+}
+
+.fp-enquire:hover {
+  background: #75452e;
+}
+
+.fp-enquire span {
+  font-size: 19px;
+  transition: transform .25s ease;
+}
+
+.fp-enquire:hover span {
+  transform: translateX(5px);
+}
+
+/* DISCLAIMER */
+
+.fp-disclaimer {
+  margin: 18px 0 0;
+  color: #91877c;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+/* LIGHTBOX */
+
+.fp-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  background: #17140fdf;
+}
+
+.fp-lightbox.open {
+  display: flex;
+}
+
+.fp-lightbox-content {
+  width: min(850px, 100%);
+  max-height: 90vh;
+  text-align: center;
+}
+
+.fp-lightbox-content p {
+  margin-bottom: 15px;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.fp-lightbox-content img {
+  display: block;
+  max-width: 100%;
+  max-height: 78vh;
+  margin: auto;
+  padding: 12px;
+  object-fit: contain;
+  background: #fff;
+}
+
+.fp-lightbox-close {
+  position: absolute;
+  top: 22px;
+  right: 30px;
+  color: #fff;
+  background: transparent;
+  border: 0;
+  font-size: 38px;
+  cursor: pointer;
+}
+
+/* TABLET */
+
+@media (max-width: 1100px) {
+  .fp-residence-selector {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .fp-card-main {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .fp-plan-image {
+    height: 320px;
+  }
+
+  .fp-card-info {
+    padding: 0 3px 10px;
+  }
+
+  .fp-highlights {
+    padding: 15px 18px;
+    gap: 10px;
+  }
+
+  .fp-highlight {
+    font-size: 12px;
+    gap: 7px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .fp-section {
+    padding: 110px 0 55px;
+  }
+
+  .fp-container {
+    width: 92%;
+  }
+
+  .fp-heading {
+    margin-bottom: 32px;
+  }
+
+  .fp-eyebrow {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+  }
+
+  .fp-heading h2 {
+    font-size: 43px;
+    margin-top: 15px;
+  }
+
+  .fp-heading > p {
+    font-size: 13px;
+  }
+
+  .fp-residence-selector {
+    display: flex;
+    gap: 9px;
+    margin: 28px 0 22px;
+    padding: 2px 2px 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: #c9a58a transparent;
+  }
+
+  .fp-residence-chip {
+    flex: 0 0 155px;
+    min-height: 105px;
+    padding: 14px;
+    scroll-snap-align: start;
+  }
+
+  .fp-chip-name {
+    font-size: 13px;
+  }
+
+  .fp-grid {
+    grid-template-columns: 1fr;
+    gap: 23px;
+  }
+
+  .fp-card-main {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 18px;
+  }
+
+  .fp-plan-image {
+    height: 290px;
+  }
+
+  .fp-card-info h3 {
+    font-size: 32px;
+  }
+
+  .fp-highlights {
+    padding: 15px 12px;
+    gap: 7px;
+  }
+
+  .fp-highlight {
+    gap: 5px;
+    font-size: 10px;
+  }
+
+  .fp-highlight-icon {
+    width: 19px;
+    height: 19px;
+  }
+
+  .fp-highlight-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .fp-enquire {
+    min-height: 55px;
+    font-size: 12px;
+  }
+
+  .fp-disclaimer {
+    text-align: left;
+    font-size: 10px;
+  }
+}
+
+/* SMALL MOBILE */
+
+@media (max-width: 380px) {
+  .fp-plan-image {
+    height: 245px;
+  }
+
+  .fp-highlights {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .fp-highlight {
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fp-card,
+  .fp-plan-image img,
+  .fp-enquire,
+  .fp-enquire span,
+  .fp-residence-chip {
+    transition: none !important;
+  }
+}
+</style>
+
+<script>
+const initFloorPlans = () => {
+  const section = document.querySelector("#floor-plans");
+
+  if (!section || section.dataset.initialized === "true") return;
+
+  section.dataset.initialized = "true";
+
+  const residences = {
+    "Everglades": ["2 BHK"],
+    "Athashri Bhugaon": ["2 BHK", "2.5 BHK"],
+    "Highgardens": ["2 BHK", "3 BHK", "4 BHK"],
+    "The Canopy": ["2 BHK", "3 BHK"],
+    "The Cove": ["4 BHK"],
+    "The Rivolo": ["4 BHK"]
+  };
+
+  let selectedResidence = "Athashri Bhugaon";
+
+  const grid = section.querySelector("#fp-grid");
+
+  const lightbox = document.querySelector("#fp-lightbox");
+  const lightboxImage = document.querySelector("#fp-lightbox-image");
+  const lightboxTitle = document.querySelector("#fp-lightbox-title");
+
+  const slug = (value) =>
+    value.toLowerCase().replaceAll(" ", "-");
+
+  const getImage = (residence, config) =>
+    `/images/floor-plans/${slug(residence)}-${slug(config)}.webp`;
+
+  /* IMAGE LOADING */
+
+  const setupImages = (container) => {
+    container.querySelectorAll(".fp-plan-image img").forEach((img) => {
+      const showImage = () => {
+        img.classList.add("fp-image-loaded");
+      };
+
+      img.addEventListener("load", showImage, { once: true });
+
+      if (img.complete && img.naturalWidth > 0) {
+        showImage();
+      }
+    });
+  };
+
+  /* HIGHLIGHTS */
+
+  const highlightsHTML = `
+    <div class="fp-highlights">
+
+      <div class="fp-highlight">
+        <span class="fp-highlight-icon">
+          <svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 3H3v5M16 3h5v5M21 16v5h-5M3 16v5h5"/>
+          </svg>
+        </span>
+        <span>Larger<br>Living Spaces</span>
+      </div>
+
+      <div class="fp-highlight">
+        <span class="fp-highlight-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2 3.5 5.5V11c0 5.2 3.6 9.6 8.5 11 4.9-1.4 8.5-5.8 8.5-11V5.5L12 2Zm0 3 5.5 2.2V11c0 3.7-2.3 7.1-5.5 8.4V5Z"/>
+          </svg>
+        </span>
+        <span>Enhanced<br>Privacy</span>
+      </div>
+
+      <div class="fp-highlight">
+        <span class="fp-highlight-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="9" cy="7" r="3.2"/>
+            <circle cx="17" cy="8" r="2.6"/>
+            <circle cx="4" cy="9" r="2.2"/>
+            <path d="M2 18c0-3.1 2.8-5.3 6.4-5.3h1.2c3.6 0 6.4 2.2 6.4 5.3v1H2v-1Zm13-4.2c3.9-.6 7 1.5 7 4.2v1h-5.2v-1c0-1.7-.7-3.2-1.8-4.2Z"/>
+          </svg>
+        </span>
+        <span>Designed<br>for Modern Families</span>
+      </div>
+
+    </div>
+  `;
+
+  /* RENDER FLOOR PLAN CARDS */
+
+  const renderCards = () => {
+    const residence = selectedResidence;
+    const configs = residences[residence];
+
+    grid.innerHTML = configs.map((config) => {
+      const image = getImage(residence, config);
+
+      return `
+        <article class="fp-card">
+
+          <div class="fp-card-main">
+
+            <div class="fp-plan-image">
+
+              <div class="fp-image-placeholder">
+                <span>FLOOR PLAN</span>
+                <small>Approved layout preview</small>
+              </div>
+
+              <img
+                src="${image}"
+                alt="${residence} ${config} floor plan"
+                loading="lazy"
+              />
+
+              <button
+                class="fp-enlarge"
+                type="button"
+                data-image="${image}"
+                data-title="${residence} — ${config}"
+              >
+                <span>⌕</span> Enlarge
+              </button>
+
+            </div>
+
+            <div class="fp-card-info">
+
+              <span class="fp-card-kicker">
+                RESIDENTIAL CONFIGURATION
+              </span>
+
+              <h3>${config}</h3>
+
+              <p class="fp-residence-name">${residence}</p>
+
+              <div class="fp-area">
+                <span>▦</span>
+                Carpet area: On request
+              </div>
+
+              <div class="fp-price-label">Starting from</div>
+
+              <div class="fp-price">Price on request</div>
+
+              <p class="fp-price-note">
+                Contact our team for current pricing and availability.
+              </p>
+
+            </div>
+          </div>
+
+          ${highlightsHTML}
+
+          <a
+            class="fp-enquire"
+            href="#contact"
+            data-enquire="${config}"
+          >
+            Enquire For ${config} Floor Plan
+            <span>→</span>
+          </a>
+
+        </article>
+      `;
+    }).join("");
+
+    setupImages(grid);
+  };
+
+  setupImages(grid);
+
+  /* RESIDENCE CHIP SELECTION */
+
+  section.querySelectorAll(".fp-residence-chip").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      selectedResidence = chip.dataset.residence;
+
+      section.querySelectorAll(".fp-residence-chip").forEach((item) => {
+        const isActive = item === chip;
+
+        item.classList.toggle("is-active", isActive);
+        item.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+
+      renderCards();
+    });
+  });
+
+  /* OPEN FLOOR PLAN IMAGE */
+
+  section.addEventListener("click", (event) => {
+    const button = event.target.closest(".fp-enlarge");
+
+    if (!button) return;
+
+    lightboxImage.src = button.dataset.image;
+    lightboxTitle.textContent = button.dataset.title;
+
+    lightbox.classList.add("open");
+    lightbox.setAttribute("aria-hidden", "false");
+
+    document.body.style.overflow = "hidden";
+  });
+
+  /* CLOSE LIGHTBOX */
+
+  const closeLightbox = () => {
+    lightbox.classList.remove("open");
+    lightbox.setAttribute("aria-hidden", "true");
+    lightboxImage.src = "";
+    document.body.style.overflow = "";
+  };
+
+  lightbox.querySelector(".fp-lightbox-close")
+    .addEventListener("click", closeLightbox);
+
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Escape" &&
+      lightbox.classList.contains("open")
+    ) {
+      closeLightbox();
+    }
+  });
+
+  /* PASS SELECTED RESIDENCE AND CONFIG TO CONTACT SECTION */
+
+  section.addEventListener("click", (event) => {
+    const link = event.target.closest("[data-enquire]");
+
+    if (!link) return;
+
+    const contact = document.querySelector("#contact");
+
+    if (contact) {
+      contact.dataset.selectedResidence = selectedResidence;
+      contact.dataset.selectedConfig = link.dataset.enquire;
+    }
+  });
+};
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initFloorPlans, {
+    once: true
+  });
+} else {
+  initFloorPlans();
+}
+
+document.addEventListener("astro:page-load", initFloorPlans);
+</script>

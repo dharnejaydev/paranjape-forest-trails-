@@ -1,11 +1,33 @@
----
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+import MainLayout from "../layouts/MainLayout.astro";
+
+import Hero from "../components/Hero.astro";
+import ProjectStats from "../components/ProjectStats.astro";
+import Overview from "../components/Overview.astro";
+import ProjectCollection from "../components/ProjectCollection.astro";
+import FloorPlans from "../components/FloorPlans.astro";
+import Amenities from "../components/Amenities.astro";
+import Location from "../components/Location.astro";
+import LeadForm from "../components/LeadForm.astro";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<MainLayout
+  title="Paranjape Forest Trails Bhugaon | Premium Residences in Pune"
+  description="Explore Paranjape Forest Trails in Bhugaon, Pune. Discover premium apartments, luxury villas, lifestyle amenities and residential choices. Enquire for project details and a site visit."
+>
+
+  <Hero />
+  <ProjectStats />
+  <Overview />
+
+  <ProjectCollection />
+  <FloorPlans />
+
+  <Amenities />
+
+  <Location />
+
+  <LeadForm />
+
+</MainLayout>

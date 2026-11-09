@@ -1,0 +1,751 @@
+
+---
+const destinations = [
+  {
+    name: "Chandani Chowk",
+    time: "Approx. 6 min*",
+    category: "CONNECTIVITY",
+    number: "01",
+  },
+  {
+    name: "Bavdhan",
+    time: "Approx. 8 min*",
+    category: "NEARBY AREA",
+    number: "02",
+  },
+  {
+    name: "Mumbai–Bangalore Highway",
+    time: "Approx. 10 min*",
+    category: "HIGHWAY ACCESS",
+    number: "03",
+  },
+  {
+    name: "Baner",
+    time: "Approx. 15 min*",
+    category: "BUSINESS DISTRICT",
+    number: "04",
+  },
+  {
+    name: "Hinjewadi IT Park",
+    time: "Approx. 25 min*",
+    category: "IT HUB",
+    number: "05",
+  },
+  {
+    name: "Pune Railway Station",
+    time: "Approx. 35 min*",
+    category: "TRANSPORT",
+    number: "06",
+  },
+  {
+    name: "Pune Airport",
+    time: "Approx. 50 min*",
+    category: "AIR CONNECTIVITY",
+    number: "07",
+  },
+];
+
+const mapImage = "/images/location/forest-trails-connectivity-map2.png";
+
+const directionsUrl =
+  "https://www.google.com/maps/search/?api=1&query=Paranjape+Forest+Trails+Bhugaon+Pune";
+---
+
+<section class="location-section" id="location">
+  <div class="location-container">
+
+    <!-- SECTION HEADING -->
+    <div class="location-heading">
+      <div class="location-heading-main">
+        <span class="location-eyebrow">LOCATION & CONNECTIVITY</span>
+
+        <h2>
+          Connected To The City.
+          <span>Closer To Nature.</span>
+        </h2>
+      </div>
+
+     
+    </div>
+
+    <!-- MAP + DESTINATIONS -->
+    <div class="location-layout">
+
+      <!-- LEFT: MAP -->
+      <div class="location-map-column">
+
+        <div class="location-map-card">
+
+          <div class="location-map-visual">
+            <img
+              src={mapImage}
+              alt="Forest Trails Bhugaon Pune connectivity map"
+              class="location-map-image"
+              loading="lazy"
+              decoding="async"
+            />
+
+            <!-- ANIMATED SPIDER NETWORK -->
+            <svg
+              class="location-network-overlay"
+              viewBox="0 0 1276 1176"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <defs>
+                <filter id="location-gold-glow">
+                  <feGaussianBlur stdDeviation="4" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <path id="location-route-airport"
+                class="location-route"
+                d="M535 780 C600 650 735 470 850 380 S980 310 1034 307"
+              />
+
+              <path id="location-route-hinjewadi"
+                class="location-route"
+                d="M535 780 C500 680 470 560 426 463"
+              />
+
+              <path id="location-route-baner"
+                class="location-route"
+                d="M535 780 C640 700 770 600 927 522"
+              />
+
+              <path id="location-route-railway"
+                class="location-route"
+                d="M535 780 C690 730 870 675 1040 687"
+              />
+
+              <path id="location-route-highway"
+                class="location-route"
+                d="M535 780 C485 700 420 645 359 603"
+              />
+
+              <path id="location-route-bavdhan"
+                class="location-route"
+                d="M535 780 C465 775 380 780 312 805"
+              />
+
+              <path id="location-route-chandani"
+                class="location-route location-route-light"
+                d="M535 780 C625 795 715 810 806 832"
+              />
+
+              <!-- Moving particles -->
+              {[
+                "location-route-airport",
+                "location-route-hinjewadi",
+                "location-route-baner",
+                "location-route-railway",
+                "location-route-highway",
+                "location-route-bavdhan",
+                "location-route-chandani",
+              ].map((route, index) => (
+                <circle
+                  r="5"
+                  class="location-particle"
+                  filter="url(#location-gold-glow)"
+                >
+                  <animateMotion
+                    dur={`${4 + index * 0.4}s`}
+                    begin={`${index * 0.5}s`}
+                    repeatCount="indefinite"
+                  >
+                    <mpath href={`#${route}`} />
+                  </animateMotion>
+                </circle>
+              ))}
+
+              <!-- Destination nodes -->
+              {[
+                [1034, 307],
+                [426, 463],
+                [927, 522],
+                [1040, 687],
+                [359, 603],
+                [312, 805],
+                [806, 832],
+              ].map(([x, y]) => (
+                <g class="location-node">
+                  <circle cx={x} cy={y} r="10" class="location-node-pulse"/>
+                  <circle cx={x} cy={y} r="4" class="location-node-core"/>
+                </g>
+              ))}
+
+              <!-- Central project node -->
+              <circle cx="535" cy="780" r="23" class="location-center-pulse"/>
+              <circle cx="535" cy="780" r="8" class="location-center-core"/>
+            </svg>
+
+            <div class="location-map-caption">
+              <span class="location-map-caption-dot"></span>
+              FOREST TRAILS · BHUGAON
+            </div>
+
+            <a
+              href={mapImage}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="location-map-expand"
+              aria-label="Open full-size connectivity map"
+            >
+              <span>↗</span>
+            </a>
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- RIGHT: DESTINATION DETAILS -->
+      <div class="location-destinations">
+
+        <div class="location-destinations-heading">
+          <span>EXPLORE THE CONNECTIVITY</span>
+          <h3>Important Destinations Nearby</h3>
+          <p>
+            Everyday conveniences and key destinations,
+            within convenient reach of home.
+          </p>
+        </div>
+
+        <div class="location-destination-list">
+
+          {destinations.map((destination) => (
+            <div class="location-destination-item">
+
+              <div class="location-destination-number">
+                {destination.number}
+              </div>
+
+              <div class="location-destination-info">
+                <span>{destination.category}</span>
+                <h4>{destination.name}</h4>
+              </div>
+
+              <div class="location-destination-time">
+                {destination.time}
+              </div>
+
+            </div>
+          ))}
+
+        </div>
+
+        
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.location-section {
+  --location-bg: #f7f4ed;
+  --location-green: #173d2d;
+  --location-gold: #bd965b;
+  --location-text: #29271f;
+  --location-muted: #827b70;
+
+  width: 100%;
+  padding: 90px 0;
+  background: var(--location-bg);
+  overflow: hidden;
+}
+
+.location-container {
+  width: min(1440px, 90%);
+  margin: 0 auto;
+}
+
+/* HEADING */
+
+.location-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 50px;
+  margin-bottom: 48px;
+}
+
+.location-heading-main {
+  flex: 1;
+}
+
+.location-eyebrow {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--location-gold);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.location-heading h2 {
+  margin: 0;
+  color: var(--location-text);
+  font: 500 clamp(38px, 4.3vw, 62px)/1.05
+    "Cormorant Garamond", Georgia, serif;
+  letter-spacing: -1px;
+}
+
+.location-heading h2 span {
+  color: var(--location-gold);
+}
+
+.location-heading > p {
+  width: 350px;
+  max-width: 38%;
+  margin: 0 0 5px;
+  color: #777066;
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+/* MAIN ALIGNMENT */
+
+.location-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+  align-items: start;
+  gap: 48px;
+}
+
+/* LEFT MAP */
+
+.location-map-column {
+  min-width: 0;
+}
+
+.location-map-card {
+  background: #fff;
+  border: 1px solid #e5dccd;
+  box-shadow: 0 12px 35px rgba(44, 35, 22, .055);
+}
+
+.location-map-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.13 / 1;
+  overflow: hidden;
+  background: #f5f4ef;
+}
+
+.location-map-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.location-network-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* NETWORK ANIMATION */
+
+.location-route {
+  fill: none;
+  stroke: #e6ad3e;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 9 13;
+  opacity: .9;
+  animation: location-route-flow 2.5s linear infinite;
+}
+
+.location-route-light {
+  stroke-width: 2;
+  opacity: .65;
+  animation-duration: 3.2s;
+}
+
+@keyframes location-route-flow {
+  to {
+    stroke-dashoffset: -88;
+  }
+}
+
+.location-particle {
+  fill: #fff3c4;
+  stroke: #dca12e;
+  stroke-width: 2;
+  opacity: .95;
+}
+
+.location-node-pulse {
+  fill: #eab84f;
+  opacity: .4;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: location-node-pulse 2.4s ease-out infinite;
+}
+
+.location-node-core {
+  fill: #fff;
+  stroke: #dca12e;
+  stroke-width: 2.5;
+}
+
+@keyframes location-node-pulse {
+  0% {
+    opacity: .55;
+    transform: scale(.6);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+
+.location-center-pulse {
+  fill: #eab84f;
+  opacity: .3;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: location-node-pulse 2.4s ease-out infinite;
+}
+
+.location-center-core {
+  fill: #fff4c5;
+  stroke: #c99536;
+  stroke-width: 3;
+}
+
+/* MAP LABELS */
+
+.location-map-caption {
+  position: absolute;
+  bottom: 13px;
+  left: 13px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 11px;
+  background: rgba(255, 255, 255, .94);
+  color: #5b554b;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+  box-shadow: 0 2px 12px #00000012;
+}
+
+.location-map-caption-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--location-gold);
+}
+
+.location-map-expand {
+  position: absolute;
+  right: 13px;
+  bottom: 13px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--location-green);
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+  transition: background .2s ease;
+}
+
+.location-map-expand:hover {
+  background: #2c5942;
+}
+
+/* MAP FOOTER */
+
+.location-map-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 22px;
+  border-top: 1px solid #eee7dc;
+}
+
+.location-map-address > span {
+  color: var(--location-gold);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.location-map-address h3 {
+  margin: 7px 0 4px;
+  color: var(--location-green);
+  font: 500 24px "Cormorant Garamond", Georgia, serif;
+}
+
+.location-map-address p {
+  margin: 0;
+  color: var(--location-muted);
+  font-size: 10px;
+}
+
+.location-directions {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  background: var(--location-green);
+  color: white;
+  text-decoration: none;
+  font-size: 10px;
+  white-space: nowrap;
+  transition: background .25s ease;
+}
+
+.location-directions:hover {
+  background: #2c5942;
+}
+
+.location-directions span {
+  color: #e5c48c;
+  font-size: 15px;
+}
+
+/* RIGHT DESTINATIONS */
+
+.location-destinations {
+  min-width: 0;
+  padding-top: 8px;
+}
+
+.location-destinations-heading {
+  margin-bottom: 20px;
+}
+
+.location-destinations-heading > span {
+  color: var(--location-gold);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+}
+
+.location-destinations-heading h3 {
+  margin: 12px 0 7px;
+  color: var(--location-green);
+  font: 500 30px/1.15 "Cormorant Garamond", Georgia, serif;
+}
+
+.location-destinations-heading p {
+  margin: 0;
+  color: #827b70;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+/* DESTINATION ROWS */
+
+.location-destination-list {
+  border-top: 1px solid #e3dacb;
+}
+
+.location-destination-item {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px;
+  min-height: 75px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e3dacb;
+  transition: padding .25s ease, background .25s ease;
+}
+
+.location-destination-item:hover {
+  padding-left: 8px;
+  background: rgba(255, 255, 255, .4);
+}
+
+.location-destination-number {
+  color: var(--location-gold);
+  font: 500 17px "Cormorant Garamond", Georgia, serif;
+}
+
+.location-destination-info {
+  min-width: 0;
+}
+
+.location-destination-info > span {
+  display: block;
+  margin-bottom: 6px;
+  color: #aaa092;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.location-destination-info h4 {
+  margin: 0;
+  color: #29271f;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.location-destination-time {
+  color: var(--location-green);
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.location-disclaimer {
+  margin: 15px 0 0;
+  color: #999084;
+  font-size: 9px;
+  line-height: 1.6;
+}
+
+/* TABLET */
+
+@media (max-width: 1000px) {
+  .location-section {
+    padding: 70px 0;
+  }
+
+  .location-container {
+    width: 92%;
+  }
+
+  .location-layout {
+    gap: 28px;
+  }
+
+  .location-heading {
+    gap: 25px;
+  }
+
+  .location-heading h2 {
+    font-size: 46px;
+  }
+
+  .location-destination-item {
+    min-height: 69px;
+  }
+
+  .location-map-footer {
+    padding: 17px;
+  }
+
+  .location-map-address h3 {
+    font-size: 21px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .location-section {
+    padding: 60px 0;
+  }
+
+  .location-container {
+    width: 90%;
+  }
+
+  .location-heading {
+    display: block;
+    margin-bottom: 27px;
+  }
+
+  .location-heading h2 {
+    font-size: clamp(37px, 10vw, 48px);
+  }
+
+  .location-heading > p {
+    width: 100%;
+    max-width: 420px;
+    margin-top: 14px;
+    font-size: 11px;
+  }
+
+  .location-layout {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .location-map-visual {
+    aspect-ratio: 1 / .88;
+  }
+
+  .location-map-footer {
+    padding: 16px;
+  }
+
+  .location-map-address h3 {
+    font-size: 21px;
+  }
+
+  .location-directions {
+    padding: 11px 12px;
+    font-size: 9px;
+  }
+
+  .location-destinations {
+    padding-top: 0;
+  }
+
+  .location-destinations-heading h3 {
+    font-size: 29px;
+  }
+
+  .location-destination-item {
+    min-height: 72px;
+  }
+
+  .location-destination-info h4 {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .location-destination-item {
+    grid-template-columns: 25px minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+
+  .location-destination-time {
+    font-size: 9px;
+  }
+
+  .location-map-footer {
+    align-items: flex-start;
+  }
+
+  .location-map-address h3 {
+    font-size: 19px;
+  }
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  .location-route,
+  .location-particle,
+  .location-node-pulse,
+  .location-center-pulse {
+    animation: none !important;
+  }
+}
+</style>

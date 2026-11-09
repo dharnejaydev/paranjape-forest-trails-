@@ -1,0 +1,760 @@
+
+---
+const projects = [
+  "Everglades",
+  "Highgardens",
+  "The Canopy",
+  "Athashri",
+  "The Cove",
+  "The Rivolo",
+  "Not Sure - Need Guidance",
+];
+
+const gallery = [
+  {
+    image: "/images/projects/everglades.webp",
+    alt: "Everglades residences",
+  },
+  {
+    image: "/images/projects/highgardens.webp",
+    alt: "Highgardens residences",
+  },
+  {
+    image: "/images/projects/canopy.webp",
+    alt: "The Canopy residences",
+  },
+  {
+    image: "/images/projects/athashri.webp",
+    alt: "Athashri residences",
+  },
+  {
+    image: "/images/projects/the-cove.webp",
+    alt: "The Cove residences",
+  },
+  {
+    image: "/images/projects/rivolo.webp",
+    alt: "The Rivolo residences",
+  },
+  {
+    image: "/images/overview/forest-trails-overview.webp",
+    alt: "Residential surroundings",
+  },
+  {
+    image: "/images/hero/forest-trails-hero.png",
+    alt: "Township view",
+  },
+];
+---
+
+<section class="leadform-section" id="contact">
+  <div class="leadform-shell">
+    <div class="leadform-layout">
+
+      <!-- LEFT CONTENT -->
+      <div class="leadform-left">
+        <span class="leadform-eyebrow">LET'S CONNECT</span>
+
+        <h2>
+          Find Your
+          <span>Dream Home.</span>
+        </h2>
+
+        <p class="leadform-description">
+          Share your details and our team will get in touch.
+          Explore the residential choices at Paranjape Forest Trails.
+        </p>
+
+        <!-- AUTOMATIC IMAGE COLLAGE -->
+        <div class="leadform-gallery" aria-label="Residential project image gallery">
+          <div class="gallery-photo gallery-photo-back">
+            <img src={gallery[2].image} alt={gallery[2].alt} loading="lazy" />
+          </div>
+
+          <div class="gallery-photo gallery-photo-middle">
+            <img src={gallery[1].image} alt={gallery[1].alt} loading="lazy" />
+          </div>
+
+          <div class="gallery-photo gallery-photo-front">
+            <img src={gallery[0].image} alt={gallery[0].alt} loading="lazy" />
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT FORM -->
+      <div class="leadform-card">
+        <div class="leadform-card-heading">
+          <span>YOUR NEXT STEP STARTS HERE</span>
+          <h3>Get Project Information</h3>
+          <p>Share your details and we'll help you take it forward.</p>
+        </div>
+
+        <form
+          id="forest-trails-enquiry"
+          action="/api/leads"
+          method="POST"
+        >
+          <!-- NAME -->
+          <div class="form-field">
+            <label for="lead-name">Your Name <span>*</span></label>
+            <input
+              type="text"
+              id="lead-name"
+              name="name"
+              placeholder="Enter your full name"
+              autocomplete="name"
+              minlength="2"
+              maxlength="80"
+              required
+            />
+          </div>
+
+          <!-- PHONE -->
+          <div class="form-field">
+            <label for="lead-phone">Mobile Number <span>*</span></label>
+
+            <div class="phone-input">
+              <span>+91</span>
+              <input
+                type="tel"
+                id="lead-phone"
+                name="phone"
+                placeholder="Enter 10-digit mobile number"
+                inputmode="numeric"
+                autocomplete="tel-national"
+                pattern="[6-9][0-9]{9}"
+                maxlength="10"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- RESIDENCE DROPDOWN -->
+          <div class="form-field">
+            <label for="lead-project">Interested In <span>*</span></label>
+
+            <select id="lead-project" name="project" required>
+              <option value="" disabled selected>Select a residence</option>
+
+              {projects.map((project) => (
+                <option value={project}>{project}</option>
+              ))}
+            </select>
+          </div>
+
+          <!-- DYNAMIC BHK DROPDOWN -->
+          <div class="form-field configuration-field" id="configuration-field" hidden>
+            <label for="lead-configuration">
+              Preferred Configuration <span>*</span>
+            </label>
+
+            <select
+              id="lead-configuration"
+              name="configuration"
+              disabled
+              required
+            >
+              <option value="" disabled selected>
+                Select configuration
+              </option>
+            </select>
+          </div>
+
+          
+
+
+          <input
+            type="hidden"
+            name="source"
+            value="Google Ads - Forest Trails Landing Page"
+          />
+
+          <input
+            type="hidden"
+            name="landing_page"
+            value="Paranjape Forest Trails Bhugaon"
+          />
+
+          <button type="submit" class="leadform-submit">
+            Submit Enquiry
+            
+          </button>
+
+          
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.leadform-section {
+  --lead-green: #173d2d;
+  --lead-dark: #202c25;
+  --lead-gold: #b88d54;
+  --lead-text: #635b51;
+
+  width: 100%;
+  padding: 85px 0;
+  background: #f7f3eb;
+}
+
+.leadform-shell {
+  width: min(1380px, 91%);
+  margin: 0 auto;
+  padding: 58px 65px;
+  border: 1px solid #e7ddcf;
+  border-radius: 20px;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(255,255,255,.65), transparent 55%),
+    #f8f3eb;
+  box-shadow: 0 15px 45px rgba(53,42,26,.045);
+}
+
+.leadform-layout {
+  display: grid;
+  grid-template-columns: 1fr .88fr;
+  align-items: center;
+  gap: 75px;
+}
+
+/* LEFT CONTENT */
+
+.leadform-left {
+  min-width: 0;
+}
+
+.leadform-eyebrow {
+  display: block;
+  color: #8b6840;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+}
+
+.leadform-left h2 {
+  margin: 20px 0 15px;
+  color: var(--lead-dark);
+  font: 500 clamp(48px,5vw,72px)/.98 "Cormorant Garamond", Georgia, serif;
+  letter-spacing: -1.5px;
+}
+
+.leadform-left h2 span {
+  display: block;
+}
+
+.leadform-description {
+  max-width: 420px;
+  margin: 0;
+  color: var(--lead-text);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* IMAGE COLLAGE */
+
+.leadform-gallery {
+  position: relative;
+  width: min(440px,100%);
+  height: 265px;
+  margin-top: 30px;
+  perspective: 1000px;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.gallery-photo {
+  position: absolute;
+  overflow: hidden;
+  padding: 8px 8px 24px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.07);
+  border-radius: 4px;
+  box-shadow: 0 12px 25px rgba(39,33,24,.17);
+  transition:
+    transform .55s cubic-bezier(.2,.7,.2,1),
+    opacity .4s ease;
+  will-change: transform;
+}
+
+.gallery-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+.gallery-photo-back {
+  top: 10px;
+  left: 36%;
+  width: 45%;
+  height: 210px;
+  transform: rotate(9deg);
+  z-index: 1;
+}
+
+.gallery-photo-middle {
+  top: 25px;
+  left: 47%;
+  width: 43%;
+  height: 215px;
+  transform: rotate(13deg);
+  z-index: 2;
+}
+
+.gallery-photo-front {
+  top: 20px;
+  left: 5%;
+  width: 57%;
+  height: 230px;
+  transform: rotate(-7deg);
+  z-index: 3;
+}
+
+/* FORM CARD */
+
+.leadform-card {
+  width: 100%;
+  padding: 38px 34px;
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 17px;
+  background: rgba(255,255,255,.83);
+  box-shadow:
+    0 15px 45px rgba(44,36,25,.09),
+    0 3px 10px rgba(44,36,25,.035);
+}
+
+.leadform-card-heading {
+  margin-bottom: 27px;
+}
+
+.leadform-card-heading > span {
+  color: var(--lead-gold);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.leadform-card-heading h3 {
+  margin: 10px 0 7px;
+  color: var(--lead-dark);
+  font: 500 clamp(25px,2.2vw,34px)/1.1 "Cormorant Garamond", Georgia, serif;
+}
+
+.leadform-card-heading p {
+  margin: 0;
+  color: #81786e;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+/* FIELDS */
+
+.form-field {
+  margin-bottom: 17px;
+}
+
+.form-field[hidden] {
+  display: none !important;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 8px;
+  color: #49453e;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.form-field label span {
+  color: #a87543;
+}
+
+.form-field input,
+.form-field select {
+  display: block;
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid #e4ded5;
+  border-radius: 6px;
+  outline: none;
+  background: #fff;
+  color: #29271f;
+  font: inherit;
+  font-size: 11px;
+  transition: border-color .25s ease, box-shadow .25s ease;
+}
+
+.form-field input::placeholder {
+  color: #aaa39a;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: var(--lead-gold);
+  box-shadow: 0 0 0 3px rgba(184,141,84,.1);
+}
+
+.form-field select {
+  cursor: pointer;
+}
+
+/* PHONE */
+
+.phone-input {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  border: 1px solid #e4ded5;
+  border-radius: 6px;
+  background: white;
+}
+
+.phone-input:focus-within {
+  border-color: var(--lead-gold);
+  box-shadow: 0 0 0 3px rgba(184,141,84,.1);
+}
+
+.phone-input > span {
+  padding: 0 13px;
+  border-right: 1px solid #e8e1d8;
+  color: var(--lead-green);
+  font-size: 11px;
+}
+
+.phone-input input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  box-shadow: none;
+}
+
+.phone-input input:focus {
+  box-shadow: none;
+}
+
+/* CONSENT */
+
+.form-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.form-consent input {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  margin: 2px 0 0;
+  accent-color: var(--lead-green);
+  cursor: pointer;
+}
+
+.form-consent label {
+  color: #746d63;
+  font-size: 9px;
+  line-height: 1.65;
+  cursor: pointer;
+}
+
+/* BUTTON */
+
+.leadform-submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 49px;
+  padding: 0 17px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--lead-green);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .25s ease, transform .25s ease;
+}
+
+.leadform-submit:hover {
+  background: #28533c;
+  transform: translateY(-2px);
+}
+
+.leadform-submit span {
+  color: #e5c38f;
+  font-size: 16px;
+}
+
+.form-privacy {
+  margin: 13px 0 0;
+  color: #a39a8e;
+  font-size: 8px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* TABLET */
+
+@media (max-width: 1000px) {
+  .leadform-shell {
+    padding: 45px 35px;
+  }
+
+  .leadform-layout {
+    gap: 35px;
+  }
+
+  .leadform-card {
+    padding: 30px 24px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .leadform-section {
+    padding: 50px 0;
+  }
+
+  .leadform-shell {
+    width: 91%;
+    padding: 32px 23px;
+    border-radius: 15px;
+  }
+
+  .leadform-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .leadform-left h2 {
+    font-size: clamp(45px,12vw,60px);
+  }
+
+  .leadform-description {
+    font-size: 12px;
+  }
+
+  .leadform-gallery {
+    width: 100%;
+    max-width: 390px;
+    height: 225px;
+    margin-top: 22px;
+  }
+
+  .gallery-photo-front {
+    height: 190px;
+  }
+
+  .gallery-photo-middle {
+    height: 175px;
+  }
+
+  .gallery-photo-back {
+    height: 170px;
+  }
+
+  .leadform-card {
+    padding: 27px 21px;
+    border-radius: 13px;
+  }
+
+  .leadform-card-heading h3 {
+    font-size: 29px;
+  }
+}
+
+@media (max-width: 380px) {
+  .leadform-shell {
+    padding: 27px 17px;
+  }
+
+  .leadform-gallery {
+    height: 195px;
+  }
+
+  .gallery-photo-front {
+    height: 165px;
+  }
+
+  .gallery-photo-middle,
+  .gallery-photo-back {
+    height: 150px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-photo,
+  .leadform-submit {
+    transition: none !important;
+  }
+}
+</style>
+
+<script>
+  function initLeadForm() {
+    document.querySelectorAll(".leadform-section").forEach((root) => {
+      if (root.dataset.formReady === "true") return;
+      root.dataset.formReady = "true";
+
+      // RESIDENCE CONFIGURATIONS
+      const configurations = {
+        "Everglades": ["1 BHK", "2 BHK"],
+        "Highgardens": ["2 BHK", "3 BHK", "4 BHK"],
+        "The Canopy": ["2 BHK", "3 BHK"],
+        "Athashri": ["2 BHK", "2.5 BHK"],
+        "The Cove": ["4 BHK"],
+        "The Rivolo": ["4 BHK"],
+        "Not Sure - Need Guidance": ["Not sure yet"],
+      };
+
+      const projectSelect = root.querySelector("#lead-project");
+      const configurationField = root.querySelector("#configuration-field");
+      const configurationSelect = root.querySelector("#lead-configuration");
+
+      // Update BHK options when residence changes
+      projectSelect?.addEventListener("change", () => {
+        const selectedProject = projectSelect.value;
+        const availableConfigurations = configurations[selectedProject] || [];
+
+        // Reset previous options
+        configurationSelect.innerHTML =
+          '<option value="" disabled selected>Select configuration</option>';
+
+        if (!availableConfigurations.length) {
+          configurationField.hidden = true;
+          configurationSelect.disabled = true;
+          configurationSelect.required = false;
+          return;
+        }
+
+        // Add the relevant configurations
+        availableConfigurations.forEach((configuration) => {
+          const option = document.createElement("option");
+          option.value = configuration;
+          option.textContent = configuration;
+          configurationSelect.appendChild(option);
+        });
+
+        configurationField.hidden = false;
+        configurationSelect.disabled = false;
+        configurationSelect.required = true;
+      });
+
+      // AUTOMATIC IMAGE GALLERY
+      const galleryImages = [
+        {
+          image: "/images/projects/everglades.webp",
+          alt: "Everglades residences",
+        },
+        {
+          image: "/images/projects/highgardens.webp",
+          alt: "Highgardens residences",
+        },
+        {
+          image: "/images/projects/canopy.webp",
+          alt: "The Canopy residences",
+        },
+        {
+          image: "/images/projects/athashri.webp",
+          alt: "Athashri residences",
+        },
+        {
+          image: "/images/projects/the-cove.webp",
+          alt: "The Cove residences",
+        },
+        {
+          image: "/images/projects/rivolo.webp",
+          alt: "The Rivolo residences",
+        },
+        {
+          image: "/images/overview/forest-trails-overview.webp",
+          alt: "Residential surroundings",
+        },
+        {
+          image: "/images/hero/forest-trails-hero.png",
+          alt: "Township view",
+        },
+      ];
+
+      const photoBack = root.querySelector(".gallery-photo-back img");
+      const photoMiddle = root.querySelector(".gallery-photo-middle img");
+      const photoFront = root.querySelector(".gallery-photo-front img");
+      const stage = root.querySelector(".leadform-gallery");
+
+      if (!photoBack || !photoMiddle || !photoFront || !stage) return;
+
+      let current = 0;
+      let timer;
+      let touchStartX = 0;
+      let touchStartY = 0;
+
+      const renderGallery = () => {
+        const backIndex = (current + 2) % galleryImages.length;
+        const middleIndex = (current + 1) % galleryImages.length;
+
+        photoFront.src = galleryImages[current].image;
+        photoFront.alt = galleryImages[current].alt;
+
+        photoMiddle.src = galleryImages[middleIndex].image;
+        photoMiddle.alt = galleryImages[middleIndex].alt;
+
+        photoBack.src = galleryImages[backIndex].image;
+        photoBack.alt = galleryImages[backIndex].alt;
+      };
+
+      const nextImage = () => {
+        current = (current + 1) % galleryImages.length;
+        renderGallery();
+      };
+
+      const stopGallery = () => {
+        window.clearInterval(timer);
+      };
+
+      const startGallery = () => {
+        stopGallery();
+
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        if (document.hidden) return;
+
+        timer = window.setInterval(nextImage, 3000);
+      };
+
+      stage.addEventListener("touchstart", (event) => {
+        touchStartX = event.changedTouches[0].clientX;
+        touchStartY = event.changedTouches[0].clientY;
+      }, { passive: true });
+
+      stage.addEventListener("touchend", (event) => {
+        const deltaX = event.changedTouches[0].clientX - touchStartX;
+        const deltaY = event.changedTouches[0].clientY - touchStartY;
+
+        if (Math.abs(deltaX) < 30 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+        nextImage();
+        startGallery();
+      }, { passive: true });
+
+      stage.addEventListener("mouseenter", stopGallery);
+      stage.addEventListener("mouseleave", startGallery);
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) stopGallery();
+        else startGallery();
+      });
+
+      renderGallery();
+      startGallery();
+    });
+  }
+
+  initLeadForm();
+  document.addEventListener("astro:page-load", initLeadForm);
+</script>

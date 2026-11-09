@@ -1,0 +1,1201 @@
+
+---
+const residences = [
+  {
+    name: "Athashri Bhugaon",
+    category: "Senior Living",
+    description:
+      "2 & 2.5 BHK purpose-built senior living within the Forest Trails Township environment.",
+    price: "Starting from Rs. 72 L*",
+    image: "/images/projects/athashri.webp",
+    alt: "Athashri Bhugaon senior living residences",
+  },
+  {
+    name: "Everglades",
+    category: "Premium Apartments",
+    description:
+      "1 & 2 BHK forest-view residences inside Forest Trails Township.",
+    price: "Rs. 43.99 L* onwards",
+    image: "https://paranjapeforesttrails.co/assets/brochures/everglades.jpg",
+    alt: "Everglades premium apartments",
+  },
+  {
+    name: "Highgardens",
+    category: "Terrace Garden Residences",
+    description:
+      "Premium terrace garden residences with 2, 3 and 4 BHK options, inside Forest Trails Township.",
+    price: "Starting from Rs. 92 L*",
+    image: "https://paranjapeforesttrails.co/assets/showcase/highgardens-elevation.jpg",
+    alt: "Highgardens residential tower",
+  },
+  {
+    name: "The Canopy",
+    category: "Luxury Residences",
+    description:
+      "Elevated 2 & 3 BHK residences overlooking the green township landscape.",
+    price: "Starting from Rs. 98 L* all inclusive",
+    image: "https://paranjapeforesttrails.co/assets/brochures/canopy.jpg",
+    alt: "The Canopy luxury residences",
+  },
+  {
+    name: "The Cove",
+    category: "Twin Villas",
+    description:
+      "4 BHK premium twin-villa living in a low-density environment.",
+    price: "Rs. 2.90 Cr* onwards",
+    image: "https://paranjapeforesttrails.co/assets/brochures/the-cove.jpg",
+    alt: "The Cove twin villas",
+  },
+  {
+    name: "The Rivolo",
+    category: "Premium Villas",
+    description:
+      "4 BHK private residences in the Forest Trails Township setting.",
+    price: "Starting from Rs. 4.70 Cr* all inclusive",
+    image: "https://paranjapeforesttrails.co/assets/brochures/rivolo.png",
+    alt: "The Rivolo premium villas",
+  },
+];
+---
+
+<section class="ft-collection" id="collection">
+
+  <div class="ft-collection-container">
+
+    <!-- HEADING -->
+
+    <div class="ft-collection-heading">
+
+     
+
+      <h2>
+        Different homes.
+        <em>One distinctive address.</em>
+      </h2>
+
+      <p>
+        From senior living to premium residences and villas,
+        discover six distinctive residential experiences
+        within Paranjape Forest Trails, Bhugaon.
+      </p>
+
+    </div>
+
+
+    <!-- CAROUSEL -->
+
+    <div class="ft-carousel">
+
+      <div class="ft-carousel-stage">
+
+        {residences.map((residence, index) => (
+          <article
+            class:list={[
+              "ft-arch-card",
+              index === 0 && "is-active",
+              index === 1 && "is-next",
+              index === residences.length - 1 && "is-prev",
+              index > 1 && index !== residences.length - 1 && "is-hidden",
+            ]}
+            data-index={index}
+            aria-hidden={index > 1 && index !== residences.length - 1 ? "true" : "false"}
+          >
+
+            <div class="ft-arch-image">
+
+              <img
+                src={residence.image}
+                alt={residence.alt}
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+              />
+
+              <div class="ft-arch-image-shade"></div>
+
+            </div>
+
+            <div class="ft-arch-content">
+
+              <div class="ft-arch-symbol">
+                <span class="ft-arch-symbol-line"></span>
+                <span class="ft-arch-symbol-text">✧</span>
+                <span class="ft-arch-symbol-line"></span>
+              </div>
+
+              <span class="ft-arch-category">
+                {residence.category}
+              </span>
+
+              <h3>{residence.name}</h3>
+
+              <p class="ft-arch-description">
+                {residence.description}
+              </p>
+
+              <div class="ft-arch-price">
+                {residence.price}
+              </div>
+
+              <a href="#contact" class="ft-arch-link">
+                Know More
+                <span aria-hidden="true">→</span>
+              </a>
+
+            </div>
+
+          </article>
+        ))}
+
+      </div>
+
+    </div>
+
+
+    <!-- PAGINATION -->
+
+    <div class="ft-carousel-pagination" aria-label="Residence slides">
+
+      {residences.map((residence, index) => (
+        <button
+          type="button"
+          class:list={[
+            "ft-carousel-dot",
+            index === 0 && "is-active",
+          ]}
+          data-slide={index}
+          aria-label={`Show ${residence.name}`}
+          aria-current={index === 0 ? "true" : undefined}
+        ></button>
+      ))}
+
+    </div>
+
+
+    <!-- DISCLAIMER -->
+
+    <p class="ft-collection-disclaimer">
+      *Price guidance indicates basic cost + taxes and is subject to change.
+    </p>
+
+  </div>
+
+</section>
+
+
+<script>
+  function initForestCarousel() {
+
+    document.querySelectorAll<HTMLElement>(".ft-collection").forEach((root) => {
+
+      if (root.dataset.initialized === "true") return;
+
+      root.dataset.initialized = "true";
+
+      const cards = Array.from(
+        root.querySelectorAll<HTMLElement>(".ft-arch-card")
+      );
+
+      const dots = Array.from(
+        root.querySelectorAll<HTMLButtonElement>(".ft-carousel-dot")
+      );
+
+      const stage = root.querySelector<HTMLElement>(".ft-carousel-stage");
+
+      if (!cards.length || !stage) return;
+
+      let current = 0;
+      let autoplay: ReturnType<typeof setInterval> | undefined;
+
+      let touchStartX = 0;
+      let touchStartY = 0;
+
+      const interval = 5000;
+
+
+      // UPDATE CARDS
+
+      function updateCarousel() {
+
+        const total = cards.length;
+
+        cards.forEach((card, index) => {
+
+          const difference = (index - current + total) % total;
+
+          card.classList.remove(
+            "is-active",
+            "is-prev",
+            "is-next",
+            "is-hidden"
+          );
+
+          if (difference === 0) {
+
+            card.classList.add("is-active");
+            card.setAttribute("aria-hidden", "false");
+
+          } else if (difference === 1) {
+
+            card.classList.add("is-next");
+            card.setAttribute("aria-hidden", "false");
+
+          } else if (difference === total - 1) {
+
+            card.classList.add("is-prev");
+            card.setAttribute("aria-hidden", "false");
+
+          } else {
+
+            card.classList.add("is-hidden");
+            card.setAttribute("aria-hidden", "true");
+
+          }
+
+        });
+
+
+        // UPDATE DOTS
+
+        dots.forEach((dot, index) => {
+
+          const active = index === current;
+
+          dot.classList.toggle("is-active", active);
+
+          if (active) {
+            dot.setAttribute("aria-current", "true");
+          } else {
+            dot.removeAttribute("aria-current");
+          }
+
+        });
+
+      }
+
+
+      // GO TO SLIDE
+
+      function goTo(index: number) {
+
+        current = (index + cards.length) % cards.length;
+
+        updateCarousel();
+
+      }
+
+
+      // NEXT
+
+      function next() {
+        goTo(current + 1);
+      }
+
+
+      // PREVIOUS
+
+      function previous() {
+        goTo(current - 1);
+      }
+
+
+      // STOP AUTOPLAY
+
+      function stopAutoplay() {
+
+        if (autoplay !== undefined) {
+
+          clearInterval(autoplay);
+
+          autoplay = undefined;
+
+        }
+
+      }
+
+
+      // START AUTOPLAY
+
+      function startAutoplay() {
+
+        stopAutoplay();
+
+        if (
+          document.hidden ||
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          return;
+        }
+
+        autoplay = setInterval(next, interval);
+
+      }
+
+
+      // PAGINATION CLICK
+
+      dots.forEach((dot) => {
+
+        dot.addEventListener("click", () => {
+
+          goTo(Number(dot.dataset.slide));
+
+          startAutoplay();
+
+        });
+
+      });
+
+
+      // SIDE CARD CLICK
+
+      cards.forEach((card, index) => {
+
+        card.addEventListener("click", (event) => {
+
+          if (card.classList.contains("is-active")) return;
+
+          if (
+            event.target instanceof Element &&
+            event.target.closest("a")
+          ) {
+            return;
+          }
+
+          goTo(index);
+
+          startAutoplay();
+
+        });
+
+      });
+
+
+      // MOBILE SWIPE
+
+      stage.addEventListener("touchstart", (event) => {
+
+        touchStartX = event.changedTouches[0].clientX;
+
+        touchStartY = event.changedTouches[0].clientY;
+
+      }, { passive: true });
+
+
+      stage.addEventListener("touchend", (event) => {
+
+        const touchEndX = event.changedTouches[0].clientX;
+
+        const touchEndY = event.changedTouches[0].clientY;
+
+        const deltaX = touchEndX - touchStartX;
+
+        const deltaY = touchEndY - touchStartY;
+
+        // Ignore vertical page scrolling
+
+        if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+
+        // Fast swipe response
+
+        if (Math.abs(deltaX) > 30) {
+
+          if (deltaX < 0) {
+            next();
+          } else {
+            previous();
+          }
+
+          startAutoplay();
+
+        }
+
+      }, { passive: true });
+
+
+      // PAUSE WHEN TAB IS HIDDEN
+
+      document.addEventListener("visibilitychange", () => {
+
+        if (document.hidden) {
+          stopAutoplay();
+        } else {
+          startAutoplay();
+        }
+
+      });
+
+
+      // INITIALIZE
+
+      updateCarousel();
+
+      startAutoplay();
+
+    });
+
+  }
+
+  initForestCarousel();
+
+  document.addEventListener("astro:page-load", initForestCarousel);
+</script>
+
+
+<style>
+
+/* =========================================
+   COLLECTION SECTION
+========================================= */
+
+.ft-collection {
+  position: relative;
+  overflow: hidden;
+
+  padding: 100px 5% 75px;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 65%,
+      #fffaf0 0%,
+      transparent 65%
+    ),
+    #f5efe3;
+}
+
+.ft-collection-container {
+  width: 100%;
+  max-width: 1450px;
+  margin: 0 auto;
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.ft-collection-heading {
+  text-align: center;
+  margin-bottom: 55px;
+}
+
+.ft-collection-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+
+  color: #31503a;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.ft-collection-eyebrow span {
+  width: 35px;
+  height: 1px;
+  background: #b58d48;
+}
+
+.ft-collection-heading h2 {
+  margin: 18px 0 12px;
+
+  color: #24372b;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(38px, 4.5vw, 64px);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.ft-collection-heading h2 em {
+  color: #a88752;
+  font-weight: 400;
+}
+
+.ft-collection-heading p {
+  max-width: 700px;
+  margin: 0 auto;
+
+  color: #6e7168;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+
+/* =========================================
+   CAROUSEL
+========================================= */
+
+.ft-carousel {
+  width: 100%;
+  max-width: 1380px;
+
+  margin: 0 auto;
+  padding: 0 65px;
+
+  box-sizing: border-box;
+}
+
+.ft-carousel-stage {
+  position: relative;
+
+  width: 100%;
+  height: 680px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1800px;
+  transform-style: preserve-3d;
+
+  overflow: visible;
+
+  touch-action: pan-y;
+}
+
+
+/* =========================================
+   ARCH CARDS
+========================================= */
+
+.ft-arch-card {
+  position: absolute;
+
+  width: min(340px, 32%);
+  height: 550px;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 2px solid #c9a45d;
+  border-radius: 190px 190px 30px 30px;
+
+  background: #102f20;
+
+  box-shadow:
+    0 18px 35px rgba(24, 44, 29, 0.22),
+    inset 0 0 0 3px rgba(255, 222, 155, 0.16);
+
+  transform-origin: center bottom;
+
+  transition:
+    transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.35s ease,
+    filter 0.35s ease,
+    box-shadow 0.4s ease;
+
+  cursor: pointer;
+}
+
+
+/* CENTRE CARD */
+
+.ft-arch-card.is-active {
+  z-index: 5;
+  opacity: 1;
+  filter: none;
+
+  transform:
+    translateX(0)
+    translateY(0)
+    translateZ(120px)
+    scale(1);
+
+  box-shadow:
+    0 28px 55px rgba(24, 44, 29, 0.28),
+    0 0 0 4px rgba(209, 169, 96, 0.25),
+    inset 0 0 0 3px rgba(255, 222, 155, 0.22);
+
+  cursor: default;
+}
+
+
+/* LEFT CARD */
+
+.ft-arch-card.is-prev {
+  z-index: 3;
+  opacity: 0.95;
+
+  transform:
+    translateX(-112%)
+    translateY(28px)
+    translateZ(-150px)
+    rotateY(8deg)
+    scale(0.80);
+
+  filter: saturate(0.85) brightness(0.94);
+}
+
+
+/* RIGHT CARD */
+
+.ft-arch-card.is-next {
+  z-index: 3;
+  opacity: 0.95;
+
+  transform:
+    translateX(112%)
+    translateY(28px)
+    translateZ(-150px)
+    rotateY(-8deg)
+    scale(0.80);
+
+  filter: saturate(0.85) brightness(0.94);
+}
+
+
+/* HIDDEN CARDS */
+
+.ft-arch-card.is-hidden {
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+
+  transform:
+    translateY(60px)
+    translateZ(-500px)
+    scale(0.5);
+}
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.ft-arch-image {
+  position: absolute;
+  inset: 0 0 auto;
+
+  height: 57%;
+  overflow: hidden;
+
+  border-radius: 190px 190px 0 0;
+}
+
+.ft-arch-image img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  transition: transform 0.45s ease;
+}
+
+.ft-arch-card.is-active:hover .ft-arch-image img {
+  transform: scale(1.04);
+}
+
+.ft-arch-image-shade {
+  position: absolute;
+  inset: 45% 0 0;
+
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(8, 35, 21, 0.72)
+  );
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.ft-arch-content {
+  position: absolute;
+  z-index: 2;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  min-height: 51%;
+  padding: 22px 23px 25px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  text-align: center;
+
+  color: #fff5d9;
+
+  background: linear-gradient(
+    150deg,
+    #17452d,
+    #092b1b 75%
+  );
+
+  border-top: 2px solid #d2ad68;
+
+  border-radius: 48% 48% 0 0 / 15% 15% 0 0;
+}
+
+
+/* SYMBOL */
+
+.ft-arch-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  margin: 0 0 8px;
+
+  color: #e7ca8b;
+}
+
+.ft-arch-symbol-line {
+  width: 24px;
+  height: 1px;
+  background: rgba(231, 202, 139, 0.6);
+}
+
+.ft-arch-symbol-text {
+  font-size: 25px;
+  line-height: 1;
+}
+
+
+/* CATEGORY */
+
+.ft-arch-category {
+  color: #e7d5aa;
+
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+
+/* TITLE */
+
+.ft-arch-content h3 {
+  margin: 7px 0 8px;
+
+  color: #fff2cf;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 31px;
+  font-weight: 600;
+  line-height: 1.05;
+}
+
+
+/* DESCRIPTION */
+
+.ft-arch-description {
+  max-width: 270px;
+  min-height: 53px;
+
+  margin: 0 auto 10px;
+
+  color: rgba(255, 248, 229, 0.9);
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+
+/* PRICE */
+
+.ft-arch-price {
+  width: 100%;
+  max-width: 255px;
+
+  margin: auto 0 12px;
+  padding: 8px 10px;
+
+  border: 1px solid #d4b16e;
+  border-radius: 30px;
+
+  color: #fff1cf;
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+
+/* CTA */
+
+.ft-arch-link {
+  width: 100%;
+  max-width: 220px;
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+
+  padding: 10px 16px;
+
+  border-radius: 30px;
+
+  background: #f4e4bf;
+  color: #173622;
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.ft-arch-link:hover {
+  background: #fff4d9;
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   PAGINATION
+========================================= */
+
+.ft-carousel-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+
+  margin-top: 14px;
+}
+
+.ft-carousel-dot {
+  width: 11px;
+  height: 11px;
+
+  padding: 0;
+
+  border: 1px solid #a9874e;
+  border-radius: 50%;
+
+  background: transparent;
+  cursor: pointer;
+
+  transition:
+    width 0.3s ease,
+    background 0.3s ease;
+}
+
+.ft-carousel-dot.is-active {
+  width: 27px;
+
+  border-radius: 20px;
+  background: #183c27;
+  border-color: #183c27;
+}
+
+
+/* =========================================
+   DISCLAIMER
+========================================= */
+
+.ft-collection-disclaimer {
+  margin: 22px 0 0;
+
+  color: #858174;
+  font-size: 10px;
+  text-align: center;
+  font-style: italic;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1024px) {
+
+  .ft-collection {
+    padding: 80px 3% 65px;
+  }
+
+  .ft-carousel {
+    padding: 0 30px;
+  }
+
+  .ft-carousel-stage {
+    height: 570px;
+  }
+
+  .ft-arch-card {
+    width: 34%;
+    height: 490px;
+  }
+
+  .ft-arch-card.is-prev {
+    transform:
+      translateX(-105%)
+      translateY(25px)
+      translateZ(-120px)
+      rotateY(10deg)
+      scale(0.77);
+  }
+
+  .ft-arch-card.is-next {
+    transform:
+      translateX(105%)
+      translateY(25px)
+      translateZ(-120px)
+      rotateY(-10deg)
+      scale(0.77);
+  }
+
+  .ft-arch-content {
+    padding: 19px 16px 22px;
+  }
+
+  .ft-arch-content h3 {
+    font-size: 26px;
+  }
+
+  .ft-arch-description {
+    font-size: 10px;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .ft-collection {
+    padding: 65px 15px 50px;
+  }
+
+  .ft-collection-heading {
+    margin-bottom: 28px;
+    padding: 0 8px;
+  }
+
+  .ft-collection-eyebrow {
+    gap: 8px;
+    font-size: 8px;
+    letter-spacing: 1.6px;
+  }
+
+  .ft-collection-eyebrow span {
+    width: 18px;
+  }
+
+  .ft-collection-heading h2 {
+    margin: 14px 0 10px;
+    font-size: 36px;
+    line-height: 1.08;
+  }
+
+  .ft-collection-heading p {
+    font-size: 11px;
+    line-height: 1.7;
+  }
+
+  .ft-carousel {
+    padding: 0 18px;
+  }
+
+  .ft-carousel-stage {
+    height: 500px;
+    perspective: 1000px;
+  }
+
+  .ft-arch-card {
+    width: 76%;
+    height: 450px;
+
+    border-radius: 170px 170px 23px 23px;
+
+    transition:
+      transform 0.35s ease-out,
+      opacity 0.25s ease,
+      filter 0.25s ease,
+      box-shadow 0.35s ease;
+  }
+
+  .ft-arch-card.is-active {
+    transform: translateX(0) translateZ(70px) scale(1);
+  }
+
+  .ft-arch-card.is-prev {
+    transform:
+      translateX(-105%)
+      translateY(18px)
+      translateZ(-140px)
+      rotateY(8deg)
+      scale(0.72);
+  }
+
+  .ft-arch-card.is-next {
+    transform:
+      translateX(105%)
+      translateY(18px)
+      translateZ(-140px)
+      rotateY(-8deg)
+      scale(0.72);
+  }
+
+  .ft-arch-image {
+    height: 56%;
+    border-radius: 170px 170px 0 0;
+  }
+
+  .ft-arch-content {
+    min-height: 52%;
+    padding: 19px 16px 19px;
+  }
+
+  .ft-arch-symbol {
+    margin-bottom: 5px;
+  }
+
+  .ft-arch-symbol-text {
+    font-size: 21px;
+  }
+
+  .ft-arch-category {
+    font-size: 10px;
+  }
+
+  .ft-arch-content h3 {
+    font-size: 27px;
+    margin: 5px 0 6px;
+  }
+
+  .ft-arch-description {
+    min-height: 47px;
+    max-width: 240px;
+    font-size: 10px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .ft-arch-price {
+    font-size: 10px;
+    padding: 7px 8px;
+    margin-bottom: 9px;
+  }
+
+  .ft-arch-link {
+    min-height: 37px;
+    max-width: 190px;
+    font-size: 11px;
+    padding: 8px 13px;
+  }
+
+  .ft-carousel-pagination {
+    gap: 9px;
+    margin-top: 10px;
+  }
+
+  .ft-carousel-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .ft-carousel-dot.is-active {
+    width: 21px;
+  }
+
+  .ft-collection-disclaimer {
+    max-width: 320px;
+    margin: 18px auto 0;
+    font-size: 9px;
+    line-height: 1.6;
+  }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 380px) {
+
+  .ft-collection {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .ft-collection-heading h2 {
+    font-size: 32px;
+  }
+
+  .ft-carousel {
+    padding: 0 8px;
+  }
+
+  .ft-carousel-stage {
+    height: 470px;
+  }
+
+  .ft-arch-card {
+    width: 77%;
+    height: 430px;
+  }
+
+  .ft-arch-card.is-prev {
+    transform:
+      translateX(-100%)
+      translateY(15px)
+      translateZ(-150px)
+      rotateY(9deg)
+      scale(0.69);
+  }
+
+  .ft-arch-card.is-next {
+    transform:
+      translateX(100%)
+      translateY(15px)
+      translateZ(-150px)
+      rotateY(-9deg)
+      scale(0.69);
+  }
+
+  .ft-arch-content {
+    padding: 16px 12px;
+  }
+
+  .ft-arch-content h3 {
+    font-size: 24px;
+  }
+
+  .ft-arch-description {
+    font-size: 9px;
+  }
+
+}
+
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .ft-arch-card,
+  .ft-arch-image img,
+  .ft-arch-link,
+  .ft-carousel-dot {
+    transition: none;
+  }
+
+}
+
+</style>
